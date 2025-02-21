@@ -15,8 +15,9 @@ One can directly install the package dependencies from PyPI. We recommend to cre
 ```bash
 conda create -n hyperacl python=3.11
 ```
-Install [PyTorch](https://pytorch.org/get-started/locally/) according to your system and CUDA version.
+Install [PyTorch](https://pytorch.org/get-started/locally/) according to your system and CUDA version, then install scipy for sparse matrix computation.
 ```bash
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118 # just for example. please refer to your system and CUDA version
 pip install scipy
 ```
 
