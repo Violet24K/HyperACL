@@ -162,7 +162,7 @@ def main(args):
     i = torch.LongTensor(indices)
     v = torch.FloatTensor(values)
     shape = PT_coo.shape
-    PT_tensor = torch.sparse.FloatTensor(i, v, torch.Size(shape)).to_dense().to(device)
+    PT_tensor = torch.sparse_coo_tensor(i, v, torch.Size(shape)).to(device)
     P = P.tolil()
 
 
@@ -171,7 +171,6 @@ def main(args):
     for iter in range(500):
         phi = torch.mv(PT_tensor, phi)
         phi = phi/torch.sum(phi)
-    phi_gpu = phi.clone()
     phi = phi.cpu().numpy()
 
 
@@ -229,10 +228,7 @@ def main(args):
     for observation in range(args.obs):
         if args.verbose:
             print("Observation: ", observation)
-        if args.conf != 'ir':
-            univ = np.random.randint(4)
-        else:
-            univ = np.random.randint(3)
+        univ = np.random.randint(4)
 
         if univ == 0:
             # randomly sample 5 authors from MIT
